@@ -1,0 +1,24 @@
+# dependencies
+node_modules/
+dist/
+build/
+.tmp/
+.cache/
+
+# environment files
+.env
+.env.local
+
+# system files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# logs
+*.log
+
+# optional
+package-lock.json
