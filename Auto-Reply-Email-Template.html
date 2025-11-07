@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echo Getaways - Enquiry Received</title>
+    <style>
+      body {
+        font-family: 'Poppins', Arial, sans-serif;
+        background-color: #fffaf3;
+        color: #333;
+        margin: 0;
+        padding: 0;
+      }
+      .email-container {
+        max-width: 650px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      }
+      .header {
+        background: linear-gradient(135deg, #f59e0b, #059669);
+        color: #fff;
+        text-align: center;
+        padding: 30px 20px;
+      }
+      .header h1 {
+        margin: 0;
+        font-size: 26px;
+        letter-spacing: 0.5px;
+      }
+      .body {
+        padding: 32px 26px;
+      }
+      .body h2 {
+        font-size: 20px;
+        color: #064e3b;
+        margin-bottom: 10px;
+      }
+      .body p {
+        font-size: 15px;
+        line-height: 1.7;
+        color: #444;
+        margin: 0 0 18px;
+      }
+      .highlight {
+        color: #f59e0b;
+        font-weight: 600;
+      }
+      .signature {
+        margin-top: 30px;
+        border-top: 1px solid #eee;
+        padding-top: 18px;
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+      }
+      .cta {
+        display: inline-block;
+        background: linear-gradient(135deg, #f59e0b, #10b981);
+        color: white !important;
+        padding: 12px 24px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+      .cta:hover {
+        opacity: 0.9;
+      }
+      .footer {
+        background-color: #fafafa;
+        text-align: center;
+        padding: 20px;
+        font-size: 13px;
+        color: #999;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="header">
+        <h1>Echo Getaways</h1>
+        <p>Crafting Journeys That Echo in Your Heart ✨</p>
+      </div>
+
+      <div class="body">
+        <h2>Dear {{name}},</h2>
+        <p>
+          Thank you for reaching out to <span class="highlight">Echo Getaways</span>.
+          We’re thrilled that you’ve chosen to explore India with us.
+        </p>
+
+        <p>
+          Your travel enquiry has been received successfully.
+          One of our dedicated travel curators will connect with you shortly to discuss your plans
+          and help design a journey that truly resonates with your spirit of adventure.
+        </p>
+
+        <p>
+          In the meantime, feel free to explore our curated <span class="highlight">Destinations</span> and 
+          <span class="highlight">Experiences</span> on our website for inspiration.
+        </p>
+
+        <div style="text-align:center; margin:30px 0;">
+          <a href="https://echogetaways.in" class="cta">Explore Now</a>
+        </div>
+
+        <p>
+          Warm regards,<br />
+          <strong>The Echo Getaways Team</strong><br />
+          South Delhi, India
+        </p>
+
+        <div class="signature">
+          ✉️ <a href="mailto:hello@echogetaways.in" style="color:#059669;">hello@echogetaways.in</a> <br />
+          🌐 <a href="https://echogetaways.in" style="color:#059669;">www.echogetaways.in</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        © 2025 Echo Getaways. All rights reserved.<br />
+        You received this email because you submitted a travel enquiry on our website.
+      </div>
+    </div>
+  </body>
+</html>

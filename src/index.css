@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -----------------------------------------------------------
+   Global Layout & Typography
+----------------------------------------------------------- */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enable smooth scroll for anchor links and Explore buttons */
+html {
+  scroll-behavior: smooth;
+}
+
+/* -----------------------------------------------------------
+   Cinematic Map & Motion Enhancements
+----------------------------------------------------------- */
+
+/* Soft circular fade for map edges (used in .mask-fade class) */
+.mask-fade {
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 1) 85%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* Subtle glowing pulse animation for active region markers */
+.pulse-ring {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  animation: pulse 1.6s infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.1;
+  }
+}
+
+/* -----------------------------------------------------------
+   Subtle UI Details
+----------------------------------------------------------- */
+
+/* Improve button hover transitions globally */
+button {
+  transition: all 0.25s ease;
+}
+
+/* Smooth image fade-ins for cinematic hero backgrounds */
+img {
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+/* Slight hover zoom for interactive cards */
+.hover-zoom {
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+.hover-zoom:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+/* Hide scrollbar for scrollable filter bar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
