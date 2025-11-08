@@ -10,7 +10,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Scroll to top on route change
+  // 🧭 Scroll to top on every route change
   useEffect(() => {
     const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
     scrollTop();
@@ -18,7 +18,7 @@ export default function Navbar() {
     setMenuOpen(false);
   }, [location]);
 
-  // Detect scroll for header shrink
+  // 📜 Detect scroll for header shrink
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
@@ -33,13 +33,13 @@ export default function Navbar() {
     { to: "/contact", label: "Contact" },
   ];
 
-  // Header entry animation
+  // ✨ Header entry animation
   const headerVariants = {
     hidden: { y: -40, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: "easeOut" } },
   };
 
-  // Drawer item animation
+  // ✨ Mobile drawer item animation
   const drawerItemVariants = {
     hidden: { opacity: 0, x: 10 },
     visible: (i: number) => ({
@@ -56,8 +56,8 @@ export default function Navbar() {
       animate="visible"
       className={`fixed top-0 w-full z-50 transition-all duration-500 ease-in-out ${
         scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-[0_4px_10px_rgba(0,0,0,0.1)] py-1.5 md:py-2"
-          : "bg-gradient-to-r from-[#8B4513]/95 via-[#A8681A]/90 to-[#C1822C]/90 shadow-[0_4px_15px_rgba(0,0,0,0.15)] py-3 md:py-4"
+          ? "bg-white/90 backdrop-blur-xl shadow-lg py-2 md:py-2"
+          : "bg-gradient-to-r from-amber-800/95 to-amber-600/90 py-4 md:py-5"
       }`}
     >
       <nav
@@ -65,7 +65,7 @@ export default function Navbar() {
           scrolled ? "scale-[0.97]" : "scale-100"
         }`}
       >
-        {/* Logo + Brand */}
+        {/* === Logo + Brand === */}
         <Link
           to="/"
           onClick={() => {
@@ -78,7 +78,7 @@ export default function Navbar() {
             src={logoImage}
             alt="Echo Getaways Logo"
             className={`object-contain transition-all duration-500 ${
-              scrolled ? "h-6 w-6 sm:h-7 sm:w-7" : "h-9 w-9 sm:h-10 sm:w-10"
+              scrolled ? "h-7 w-7 sm:h-8 sm:w-8" : "h-10 w-10 sm:h-12 sm:w-12"
             } group-hover:scale-110 group-hover:drop-shadow-md`}
           />
           <span
@@ -92,7 +92,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* === Desktop Menu === */}
         <ul className="hidden md:flex gap-6 text-[0.95rem] font-medium tracking-wide transition-all">
           {navItems.map((item) => (
             <li key={item.to} className="relative group">
@@ -121,7 +121,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop Right Buttons */}
+        {/* === Right Contact + WhatsApp (Desktop) === */}
         <div className="hidden md:flex items-center gap-3 transition-all duration-500">
           <a
             href="tel:+919876543210"
@@ -150,7 +150,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* === Mobile Menu Button === */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className={`md:hidden transition-colors ${scrolled ? "text-amber-800" : "text-white"}`}
@@ -160,7 +160,7 @@ export default function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile Drawer */}
+      {/* === Mobile Drawer === */}
       <motion.div
         initial={{ x: "100%" }}
         animate={{ x: menuOpen ? 0 : "100%" }}
@@ -168,9 +168,7 @@ export default function Navbar() {
           duration: 0.5,
           ease: [0.68, -0.55, 0.27, 1.55],
         }}
-        className="fixed top-0 right-0 h-screen w-3/4 z-[60] 
-        bg-gradient-to-b from-[#8B4513]/95 via-[#A8681A]/90 to-[#C1822C]/90 
-        backdrop-blur-md rounded-l-3xl border-l border-amber-300/30 shadow-[0_0_20px_rgba(0,0,0,0.3)] md:hidden"
+        className="fixed top-0 right-0 h-screen w-3/4 z-[60] bg-gradient-to-b from-amber-800 via-amber-700 to-amber-500 rounded-l-3xl border-l border-amber-300/30 shadow-[0_0_20px_rgba(0,0,0,0.3)] md:hidden"
       >
         <div className="flex justify-between items-center px-6 py-4 border-b border-amber-300/40">
           <Link
@@ -240,7 +238,7 @@ export default function Navbar() {
         </ul>
       </motion.div>
 
-      {/* Overlay */}
+      {/* === Overlay (Fixed Blur Issue + Tap to Close) === */}
       {menuOpen && (
         <div
           className="fixed inset-0 z-[50] bg-black/60 md:backdrop-blur-sm"
