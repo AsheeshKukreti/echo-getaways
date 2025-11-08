@@ -191,5 +191,19 @@ export default function ContactForm() {
     </motion.form>
   );
 
-  return isMobile ? <MobileForm /> : <DesktopForm />;
+  // At the very bottom of ContactForm.tsx
+
+  return isMobile ? (
+    <div className="text-center text-gray-600 py-20">
+      <p className="text-base font-medium">
+        Contact form temporarily unavailable on mobile view.
+      </p>
+      <p className="text-sm text-gray-500 mt-2">
+        Please switch to desktop to access all features.
+      </p>
+    </div>
+  ) : (
+    <DesktopForm />
+  );
+
 }
