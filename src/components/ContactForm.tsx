@@ -190,9 +190,23 @@ export default function ContactForm() {
       </AnimatePresence>
     </motion.form>
   );
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      setChecked(true);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Prevent rendering until device type is known
+  if (!checked) return null;
 
   // At the very bottom of ContactForm.tsx
-
+  
   return isMobile ? (
     <div className="text-center text-gray-600 py-20">
       <p className="text-base font-medium">
