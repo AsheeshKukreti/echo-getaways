@@ -54,7 +54,7 @@ const REGIONS: Region[] = [
         id: "golden-triangle",
         title: "Golden Triangle (Delhi – Agra – Jaipur)",
         cover:
-          "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80",
+          "https://t4.ftcdn.net/jpg/05/05/51/25/240_F_505512599_D6ulJI9hV6aGTP04FPC2XDk5QHGOQtpW.jpg",
         short:
           "A classic circuit of India’s iconic monuments — the Taj Mahal, Mughal grandeur, and pink-city palaces.",
         bestTime: "Oct - Mar",
@@ -65,7 +65,7 @@ const REGIONS: Region[] = [
         id: "rishikesh-himalayas",
         title: "Rishikesh & the Himalayas",
         cover:
-          "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80",
+          "https://t3.ftcdn.net/jpg/06/48/66/02/240_F_648660265_2g5kFKAbddL356TByYTkC1INzXgNM9rr.jpg",
         short: "Gateway to mountain treks, yoga, and river rituals along the Ganges.",
         bestTime: "Mar - Jun, Sep - Nov",
         highlights: ["Morning yoga on the banks", "White-water rafting", "Himalayan treks"],
@@ -75,7 +75,7 @@ const REGIONS: Region[] = [
         id: "amritsar-punjab",
         title: "Amritsar & the Punjab Heritage Trail",
         cover:
-          "https://images.unsplash.com/photo-1542377286-6b1f1d73e6ec?auto=format&fit=crop&w=1600&q=80",
+          "https://t4.ftcdn.net/jpg/03/73/58/63/240_F_373586320_fjnrnKkakOh6ydnIu1Yh6ippCCjv1giX.jpg",
         short: "Spiritual heart with the Golden Temple and vibrant Punjabi hospitality.",
         bestTime: "Oct - Mar",
         highlights: ["Golden Temple at night", "Wagah Border ceremony", "Punjabi cuisine"],
@@ -95,7 +95,7 @@ const REGIONS: Region[] = [
         id: "kerala-backwaters",
         title: "Kerala Backwaters & Ayurveda",
         cover:
-          "https://images.unsplash.com/photo-1505765051869-5b8a0fef29b1?auto=format&fit=crop&w=1600&q=80",
+          "https://t4.ftcdn.net/jpg/03/07/60/79/240_F_307607971_JLEqOfCprPgi11Y71U99vLrzka0tXHRh.jpg",
         short: "Houseboat cruises, spice gardens, and rejuvenating Ayurvedic retreats.",
         bestTime: "Nov - Feb",
         highlights: ["Houseboat night", "Ayurvedic treatments", "Cochin cultural walk"],
@@ -105,7 +105,7 @@ const REGIONS: Region[] = [
         id: "tamil-temples",
         title: "Tamil Nadu Temples & Heritage",
         cover:
-          "https://images.unsplash.com/photo-1516685018646-5496c14b0b7d?auto=format&fit=crop&w=1600&q=80",
+          "https://t3.ftcdn.net/jpg/07/16/97/14/240_F_716971410_ipnZQ2JWlJCcyQsUhOHxbEsl5S2FZiTq.jpg",
         short: "Dravidian temple architecture, classical arts, and temple festivals.",
         bestTime: "Oct - Mar",
         highlights: ["Meenakshi Temple", "Brihadeeswarar Temple", "Classical dance"],
@@ -115,7 +115,7 @@ const REGIONS: Region[] = [
         id: "coorg-wayanad",
         title: "Coorg, Wayanad & Western Ghats",
         cover:
-          "https://images.unsplash.com/photo-1549887534-7d04e0abf1f2?auto=format&fit=crop&w=1600&q=80",
+          "https://t3.ftcdn.net/jpg/00/92/34/50/240_F_92345026_TIFAv9VVGkK4rnMBhLSidN52XGzBQkwj.jpg",
         short: "Coffee estates, green hills, and misty treks in South India’s highlands.",
         bestTime: "Oct - Mar",
         highlights: ["Coffee plantation tours", "Waterfall hikes", "Birdwatching"],
@@ -135,7 +135,7 @@ const REGIONS: Region[] = [
         id: "kolkata-city",
         title: "Kolkata — The City of Joy",
         cover:
-          "https://images.unsplash.com/photo-1505765051869-5b8a0fef29b1?auto=format&fit=crop&w=1600&q=80",
+          "https://t3.ftcdn.net/jpg/03/21/69/66/240_F_321696654_7CKA1j9BXT66JV7v7UzQVW1NHnpqN7zL.jpg",
         short: "Colonial architecture, literary culture, and vibrant arts scenes.",
         bestTime: "Oct - Mar",
         highlights: ["Victoria Memorial", "Durga Puja (seasonal)", "Iconic sweets"],
@@ -145,7 +145,7 @@ const REGIONS: Region[] = [
         id: "odisha-temples",
         title: "Odisha — Temples & Tribal Culture",
         cover:
-          "https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee?auto=format&fit=crop&w=1400&q=80",
+          "https://t3.ftcdn.net/jpg/15/27/31/58/240_F_1527315805_TxAC55T8o1ucSC6q2jMb8DlkWxO5vjB7.jpg",
         short: "Ancient temples, coastal traditions, and living tribal arts.",
         bestTime: "Oct - Feb",
         highlights: ["Konark Sun Temple", "Puri rituals", "Handloom villages"],
@@ -155,7 +155,7 @@ const REGIONS: Region[] = [
         id: "darjeeling-northeast",
         title: "Darjeeling & North-East India",
         cover:
-          "https://images.unsplash.com/photo-1549880338-65ddcdfd017b?auto=format&fit=crop&w=1600&q=80",
+          "https://t3.ftcdn.net/jpg/11/26/07/82/240_F_1126078209_m9Km94fLz6FOqWdJreuJ1qVOhDELYRO0.jpg",
         short: "Tea gardens, Himalayan vistas, and rich indigenous cultures.",
         bestTime: "Mar - May, Sep - Nov",
         highlights: ["Toy train ride", "Tea estate walks", "Kanchenjunga views"],
@@ -175,7 +175,7 @@ const REGIONS: Region[] = [
         id: "mumbai-goa",
         title: "Mumbai & Goa",
         cover:
-          "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80",
+          "https://t4.ftcdn.net/jpg/01/46/43/87/240_F_146438747_3XYwVkfnYZuukBZYmDM8xeoqENzyhAqa.jpg",
         short: "Dynamic city life, coastal beaches, and seaside relaxation.",
         bestTime: "Nov - Feb",
         highlights: ["Gateway of India", "Goa evenings", "Seafood trails"],
@@ -185,7 +185,7 @@ const REGIONS: Region[] = [
         id: "rajasthan-royal",
         title: "Rajasthan — Royal Forts & Deserts",
         cover:
-          "https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80",
+          "https://t3.ftcdn.net/jpg/01/37/45/94/240_F_137459479_GSmGLzeQeOAHGlSvb5N3zQPlL2rMGFAN.jpg",
         short: "Palaces, desert safaris, and vivid bazaars echoing royal legacies.",
         bestTime: "Oct - Mar",
         highlights: ["Amber Fort", "Pushkar fair (seasonal)", "Desert camps"],
@@ -195,7 +195,7 @@ const REGIONS: Region[] = [
         id: "gujarat-wildlife",
         title: "Gujarat — Culture & Wildlife",
         cover:
-          "https://images.unsplash.com/photo-1482192505345-5655af888cc4?auto=format&fit=crop&w=1600&q=80",
+          "https://t4.ftcdn.net/jpg/03/07/02/89/240_F_307028960_hWFgcjCThe45DNGQnYVbJvcIbDutlUOJ.jpg",
         short: "Historic temples, colorful crafts, and wildlife sanctuaries.",
         bestTime: "Oct - Feb",
         highlights: ["Gir National Park", "Rann of Kutch (seasonal)", "Handicraft villages"],
@@ -639,7 +639,7 @@ export default function DestinationsPage(): JSX.Element {
               </div>
               <div className="p-6 grid gap-4 md:grid-cols-2">
                 <div>
-                  <img src="https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=80" alt="Golden Triangle" className="w-full h-56 object-cover rounded-md mb-4" />
+                  <img src="https://t3.ftcdn.net/jpg/00/63/33/68/240_F_63336891_T42pSxVBJSQwAc4B4KxjaUswRcG3oqN7.jpg" alt="Golden Triangle" className="w-full h-56 object-cover rounded-md mb-4" />
                 </div>
                 <div>
                   <p className="text-gray-700 mb-3">A classic 6–7 day sample journey connecting Delhi, Agra, and Jaipur — heritage sites, local experiences, and royal stays.</p>

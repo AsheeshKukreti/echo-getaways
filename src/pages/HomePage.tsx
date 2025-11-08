@@ -16,17 +16,17 @@ export default function HomePage() {
     {
       title: "500+ Curated Trips",
       desc: "Handpicked experiences across mountains, beaches, and heritage cities.",
-      img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80",
+      img: "https://t3.ftcdn.net/jpg/15/95/51/10/240_F_1595511027_Ki4Hs84Gqs5RbjVE3JAs8VR7Opd3t04F.jpg",
     },
     {
       title: "Trusted Travel Experts",
       desc: "Over 15 years crafting personalized itineraries across India.",
-      img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      img: "https://t4.ftcdn.net/jpg/17/14/71/33/240_F_1714713356_0Xc7JyTiF55qYJan25saWRyg2jTKJtYl.jpg",
     },
     {
       title: "Seamless Planning",
       desc: "From inspiration to booking — we handle every detail with care.",
-      img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+      img: "https://t4.ftcdn.net/jpg/15/42/88/83/240_F_1542888361_D9vEhveAdxX4PX2NxzlreByfkcIXgeKz.jpg",
     },
   ];
 
@@ -52,7 +52,7 @@ export default function HomePage() {
         className="relative bg-cover bg-center bg-fixed text-white overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80')",
+            "linear-gradient(700deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://t3.ftcdn.net/jpg/02/94/60/98/240_F_294609859_wztl0ljhTYvBDixUNZiwZFoxQvnbTYrF.jpg')",
         }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -161,9 +161,9 @@ export default function HomePage() {
 
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {[
-              { title: "Cultural Immersions", img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" },
-              { title: "Adventure Trails", img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" },
-              { title: "Luxury Escapes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+              { title: "Cultural Immersions", img: "https://t3.ftcdn.net/jpg/16/47/10/60/240_F_1647106085_3MMQQiQ0UFFVVGYXYKh8nbY5X65op6ro.jpg" },
+              { title: "Adventure Trails", img: "https://t3.ftcdn.net/jpg/03/29/46/98/240_F_329469804_nWKvZPy16UA0xqQRZkUPN8EOobsPVlx9.jpg" },
+              { title: "Luxury Escapes", img: "https://t3.ftcdn.net/jpg/17/33/77/02/240_F_1733770257_xf722dJWdLNLOjFYB3oGcd6WGE16KEYL.jpg" },
             ].map((exp, i) => (
               <motion.div
                 key={i}

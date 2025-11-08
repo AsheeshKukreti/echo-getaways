@@ -24,7 +24,7 @@ export default function AboutPage() {
         className="relative text-white bg-cover bg-center bg-fixed overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1800&q=80')",
+            "linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.65)), url('https://t4.ftcdn.net/jpg/02/91/62/97/240_F_291629754_xySTeVRi3BfdBRT1tgr0gpVbpXRYaaKO.jpg')",
         }}
       >
         <div className="max-w-6xl mx-auto px-6 py-32 text-center">

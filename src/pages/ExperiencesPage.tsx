@@ -41,7 +41,7 @@ const EXPERIENCES: Experience[] = [
     key: "cultural",
     title: "Cultural Immersions",
     desc: "Local markets, cooking classes, village walks and living traditions.",
-    img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1200&q=80",
+    img: "https://t3.ftcdn.net/jpg/15/77/16/44/240_F_1577164431_6dwtaSUYAeY3fwBvTdnXdhiV6gcE2zxt.jpg",
     long:
       "Dive into local life: guided market walks, hands-on cooking sessions, village homestays, and craft demonstrations that put you in the centre of living culture.",
     highlights: ["Market strolls", "Cooking classes", "Village homestays"],
@@ -50,7 +50,7 @@ const EXPERIENCES: Experience[] = [
     key: "wellness",
     title: "Wellness Retreats",
     desc: "Yoga, meditation and Ayurveda programs for body & mind.",
-    img: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1200&q=80",
+    img: "https://t3.ftcdn.net/jpg/05/81/57/14/240_F_581571425_nQVjqkkm2lbYYARlLmECfrHohRa4pAP4.jpg",
     long:
       "Signature wellness programs blending yoga, meditation, and authentic Ayurvedic therapies — tailored retreats for rest, reset and rejuvenation.",
     highlights: ["Daily yoga", "Ayurvedic consultations", "Detox & spa treatments"],
@@ -59,7 +59,7 @@ const EXPERIENCES: Experience[] = [
     key: "adventure",
     title: "Adventure Tours",
     desc: "Trekking, rafting, safaris and desert camping for thrill-seekers.",
-    img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+    img: "https://t4.ftcdn.net/jpg/04/79/19/09/240_F_479190950_ehyNejlVKUUivATwpT4ZifgWIpUE9FAT.jpg",
     long:
       "From Himalayan treks to white-water rafting and desert camping under the stars — adventures designed for all levels, safely guided by experts.",
     highlights: ["Trekking", "Rafting", "Desert camping"],
@@ -68,7 +68,7 @@ const EXPERIENCES: Experience[] = [
     key: "luxury",
     title: "Luxury Escapes",
     desc: "Boutique stays, palace hotels and bespoke royal experiences.",
-    img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+    img: "https://t3.ftcdn.net/jpg/17/23/83/86/240_F_1723838677_fWkm39ruvYuf1DXVR1hiwgVZZ8qqJyid.jpg",
     long:
       "Curated luxury stays in heritage palaces, boutique hotels and private villas with personalised experiences and concierge services.",
     highlights: ["Palace stays", "Private transfers", "Bespoke dining"],
@@ -77,7 +77,7 @@ const EXPERIENCES: Experience[] = [
     key: "spiritual",
     title: "Spiritual Journeys",
     desc: "Varanasi, Rishikesh, Bodhgaya — soulful rituals and pilgrimages.",
-    img: "https://images.unsplash.com/photo-1501854260175-28a0b7b6f1d9?auto=format&fit=crop&w=1200&q=80",
+    img: "https://t3.ftcdn.net/jpg/12/87/93/16/240_F_1287931641_QXaGaFrHMssexx15FiYLZhp9WgNAidQg.jpg",
     long:
       "Guided spiritual circuits focusing on rituals, pilgrimages and contemplative stays in India's sacred places.",
     highlights: ["Ganga Aarti", "Ashram stays", "Pilgrimage trails"],
@@ -86,7 +86,7 @@ const EXPERIENCES: Experience[] = [
     key: "culinary",
     title: "Culinary Trails",
     desc: "From street food to fine dining — flavourful regional trails.",
-    img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80",
+    img: "https://t4.ftcdn.net/jpg/14/79/20/07/240_F_1479200766_TNNIXaSe8aX5xVS3kY6KxLO8pQrOa1pS.jpg",
     long:
       "Tastings, market tours, chef-led meals and regional food trails celebrating India's incredible diversity of flavours.",
     highlights: ["Street food tours", "Chef table experiences", "Regional tastings"],
@@ -99,7 +99,7 @@ const ITINERARIES: Itinerary[] = [
     title: "Golden Triangle Tour (6 Nights / 7 Days)",
     daysSummary: "Delhi – Agra – Jaipur",
     cover:
-      "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80",
+      "https://t4.ftcdn.net/jpg/00/57/34/49/240_F_57344934_px7aizqPZKKtedtgnXcDpid0YwHvrfjW.jpg",
     details: [
       "Day 1: Arrive Delhi — Explore Old & New Delhi, Jama Masjid, India Gate, Qutub Minar.",
       "Day 2: Continue Delhi sightseeing or visit Akshardham Temple. Overnight in Delhi.",
@@ -117,7 +117,7 @@ const ITINERARIES: Itinerary[] = [
     title: "Rajasthan Royal Experience (9 Nights / 10 Days)",
     daysSummary: "Jaipur – Jodhpur – Udaipur – Pushkar",
     cover:
-      "https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=1600&q=80",
+      "https://t4.ftcdn.net/jpg/03/78/60/45/240_F_378604576_i7vceaZnIduxYOmP8NBldfFqk5LZMWKu.jpg",
     details: [
       "Day 1: Arrive in Jaipur – City Palace, Hawa Mahal, and colorful bazaars.",
       "Day 2: Visit Amber Fort and Nahargarh Fort with a sunset view.",
@@ -138,7 +138,7 @@ const ITINERARIES: Itinerary[] = [
     title: "Kerala Backwaters & Spice Route (7 Nights / 8 Days)",
     daysSummary: "Cochin – Munnar – Thekkady – Alleppey – Kovalam",
     cover:
-      "https://images.unsplash.com/photo-1505765051869-5b8a0fef29b1?auto=format&fit=crop&w=1600&q=80",
+      "https://t4.ftcdn.net/jpg/14/94/13/83/240_F_1494138324_tr5oUJTa3KcRs2FysolWUvvH1WOSMQMn.jpg",
     details: [
       "Day 1: Arrive in Cochin – Visit Fort Kochi, Chinese fishing nets, and Kathakali show.",
       "Day 2: Drive to Munnar – Tea plantations, waterfalls, and spice gardens.",
@@ -157,7 +157,7 @@ const ITINERARIES: Itinerary[] = [
     title: "Varanasi & Khajuraho Heritage Trail (5 Nights / 6 Days)",
     daysSummary: "Varanasi – Sarnath – Khajuraho",
     cover:
-      "https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1600&q=80",
+      "https://t4.ftcdn.net/jpg/07/88/04/35/240_F_788043528_Y7Dyhhk7hjloP6ViB1gzXi8AhdM2tAlP.jpg",
     details: [
       "Day 1: Arrive in Varanasi – Evening Ganga Aarti at Dashashwamedh Ghat.",
       "Day 2: Morning boat ride on the Ganges and visit Sarnath Buddhist site.",
