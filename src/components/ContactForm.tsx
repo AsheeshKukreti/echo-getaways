@@ -1,5 +1,5 @@
 // src/components/ContactForm.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { sendInquiry } from "../services/contactService";
 import {
   User,
@@ -19,7 +19,17 @@ export default function ContactForm() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Detect Mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // Shared submit logic
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -39,7 +49,77 @@ export default function ContactForm() {
     }
   }
 
-  return (
+  // ✅ MOBILE FORM DESIGN
+  const MobileForm = () => (
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col space-y-4 bg-gradient-to-b from-amber-50 to-emerald-50 p-4 rounded-3xl shadow-inner"
+    >
+      {[ 
+        { icon: <User />, placeholder: "Full Name *", val: name, setVal: setName, type: "text" },
+        { icon: <Mail />, placeholder: "Email *", val: email, setVal: setEmail, type: "email" },
+        { icon: <Globe />, placeholder: "Country *", val: country, setVal: setCountry, type: "text" },
+        { icon: <Phone />, placeholder: "Phone (optional)", val: phone, setVal: setPhone, type: "text" },
+        { icon: <Calendar />, placeholder: "Preferred Travel Dates (optional)", val: dates, setVal: setDates, type: "text" },
+      ].map((field, i) => (
+        <div
+          key={i}
+          className="flex items-center bg-white rounded-2xl shadow-md px-3 py-3 border border-gray-200 focus-within:border-amber-400 transition"
+        >
+          <span className="text-amber-600 mr-3">{field.icon}</span>
+          <input
+            required={field.placeholder.includes("*")}
+            type={field.type}
+            value={field.val}
+            onChange={(e) => field.setVal(e.target.value)}
+            placeholder={field.placeholder}
+            className="w-full text-gray-800 text-base bg-transparent focus:outline-none"
+          />
+        </div>
+      ))}
+
+      {/* Message */}
+      <div className="flex items-start bg-white rounded-2xl shadow-md px-3 py-3 border border-gray-200 focus-within:border-amber-400 transition">
+        <MessageSquare className="text-amber-600 mt-1 mr-3" />
+        <textarea
+          required
+          rows={4}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Tell us about your travel ideas..."
+          className="w-full text-gray-800 text-base bg-transparent focus:outline-none resize-none"
+        />
+      </div>
+
+      {/* Submit */}
+      <button
+        disabled={loading}
+        className={`w-full py-3 mt-2 rounded-full text-white font-semibold text-lg shadow-md transition-all duration-300 ${
+          loading
+            ? "bg-gray-400 cursor-not-allowed"
+            : "bg-gradient-to-r from-amber-700 to-emerald-600 hover:opacity-90"
+        }`}
+      >
+        {loading ? "Sending..." : "Start My Journey"}
+      </button>
+
+      {/* Status */}
+      {status && (
+        <div
+          className={`mt-3 p-3 rounded-xl text-sm font-medium text-center shadow-sm ${
+            status.includes("Thank")
+              ? "bg-emerald-50 text-emerald-700"
+              : "bg-red-50 text-red-700"
+          }`}
+        >
+          {status}
+        </div>
+      )}
+    </form>
+  );
+
+  // ✅ DESKTOP FORM (Your original layout preserved)
+  const DesktopForm = () => (
     <form
       onSubmit={handleSubmit}
       className="max-w-xl w-full mx-auto px-4 sm:px-0 space-y-5 sm:space-y-6"
@@ -201,4 +281,6 @@ export default function ContactForm() {
       )}
     </form>
   );
+
+  return isMobile ? <MobileForm /> : <DesktopForm />;
 }
