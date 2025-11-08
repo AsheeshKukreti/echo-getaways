@@ -199,7 +199,7 @@ export default function ContactForm() {
         Contact form temporarily unavailable on mobile view.
       </p>
       <p className="text-sm text-gray-500 mt-2">
-        Please switch to desktop to access all features.
+        Please switch to desktop to access all application features.
       </p>
     </div>
   ) : (
