@@ -23,16 +23,23 @@ export default function ContactForm() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [checked, setChecked] = useState(false);
 
-  // Detect mobile
+  // ✅ Detect Mobile (Fixed — single effect)
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+      setChecked(true);
+    };
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Handle submit
+  // Prevent rendering until detection completes
+  if (!checked) return null;
+
+  // 📨 Handle Submit
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -51,6 +58,7 @@ export default function ContactForm() {
       setMessage("");
     }
 
+    // Auto-hide toast
     setTimeout(() => setStatus(null), 3500);
   }
 
@@ -133,7 +141,7 @@ export default function ContactForm() {
     </motion.form>
   );
 
-  // ✅ Desktop Form (unchanged logic)
+  // ✅ Desktop Form (no change)
   const DesktopForm = () => (
     <motion.form
       onSubmit={handleSubmit}
@@ -142,9 +150,7 @@ export default function ContactForm() {
       transition={{ duration: 0.6 }}
       className="max-w-xl w-full mx-auto px-4 sm:px-0 space-y-5 sm:space-y-6"
     >
-      {/* Reuse your existing desktop input blocks (same as before) */}
-      {/* Keeping identical floating label UI */}
-      {/* Name */}
+      {/* Keep your original floating label form as-is */}
       <div className="relative bg-white/80 backdrop-blur-sm shadow-sm rounded-xl p-3 flex items-center">
         <User className="text-amber-700 w-5 h-5 mr-3" />
         <div className="relative w-full group">
@@ -166,10 +172,9 @@ export default function ContactForm() {
         </div>
       </div>
 
-      {/* (Email, Country, Phone, Dates, Message, Submit...) */}
-      {/* -- Your existing desktop form remains unchanged here -- */}
+      {/* Other fields same as before... */}
+      {/* (Email, Country, Phone, Dates, Message, Submit, Toast) */}
 
-      {/* Toast Popup */}
       <AnimatePresence>
         {status && (
           <motion.div
@@ -190,23 +195,8 @@ export default function ContactForm() {
       </AnimatePresence>
     </motion.form>
   );
-  const [checked, setChecked] = useState(false);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      setChecked(true);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  // Prevent rendering until device type is known
-  if (!checked) return null;
-
-  // At the very bottom of ContactForm.tsx
-  
+  // ✅ Show or hide form based on device
   return isMobile ? (
     <div className="text-center text-gray-600 py-20">
       <p className="text-base font-medium">
@@ -219,5 +209,4 @@ export default function ContactForm() {
   ) : (
     <DesktopForm />
   );
-
 }
