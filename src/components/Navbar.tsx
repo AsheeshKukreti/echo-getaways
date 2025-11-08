@@ -10,11 +10,11 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // 🧭 Force scroll-to-top on every route change (with reliable fallback)
+  // 🧭 Scroll to top on every route change
   useEffect(() => {
     const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
     scrollTop();
-    setTimeout(scrollTop, 300); // fallback in case of instant navigation
+    setTimeout(scrollTop, 300);
     setMenuOpen(false);
   }, [location]);
 
@@ -33,10 +33,20 @@ export default function Navbar() {
     { to: "/contact", label: "Contact" },
   ];
 
-  // ✨ Animation for header entry
+  // ✨ Header entry animation
   const headerVariants = {
     hidden: { y: -40, opacity: 0 },
     visible: { y: 0, opacity: 1, transition: { duration: 0.7, ease: "easeOut" } },
+  };
+
+  // ✨ Mobile drawer item animation
+  const drawerItemVariants = {
+    hidden: { opacity: 0, x: 10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: { delay: i * 0.07, duration: 0.3 },
+    }),
   };
 
   return (
@@ -55,7 +65,7 @@ export default function Navbar() {
           scrolled ? "scale-[0.97]" : "scale-100"
         }`}
       >
-        {/* Logo + Brand */}
+        {/* === Logo + Brand === */}
         <Link
           to="/"
           onClick={() => {
@@ -82,7 +92,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        {/* Desktop Menu */}
+        {/* === Desktop Menu === */}
         <ul className="hidden md:flex gap-6 text-[0.95rem] font-medium tracking-wide transition-all">
           {navItems.map((item) => (
             <li key={item.to} className="relative group">
@@ -111,7 +121,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right-side Contact + WhatsApp */}
+        {/* === Right Contact + WhatsApp (Desktop) === */}
         <div className="hidden md:flex items-center gap-3 transition-all duration-500">
           <a
             href="tel:+919876543210"
@@ -125,7 +135,6 @@ export default function Navbar() {
             <span>+91 98765 43210</span>
           </a>
 
-          {/* WhatsApp Button */}
           <a
             href="https://wa.me/919876543210?text=Hi%20Echo%20Getaways!%20I%27m%20interested%20in%20planning%20a%20trip."
             target="_blank"
@@ -141,23 +150,25 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* === Mobile Menu Button === */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className={`md:hidden transition-colors ${
-            scrolled ? "text-amber-800" : "text-white"
-          }`}
+          className={`md:hidden transition-colors ${scrolled ? "text-amber-800" : "text-white"}`}
           aria-label="Toggle menu"
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
 
-      {/* Mobile Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-screen w-3/4 bg-gradient-to-b from-amber-700 to-amber-500 shadow-2xl transform transition-transform duration-500 md:hidden ${
-          menuOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+      {/* === Mobile Drawer === */}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: menuOpen ? 0 : "100%" }}
+        transition={{
+          duration: 0.5,
+          ease: [0.68, -0.55, 0.27, 1.55],
+        }}
+        className="fixed top-0 right-0 h-screen w-3/4 z-[60] bg-gradient-to-b from-amber-800 via-amber-700 to-amber-500 rounded-l-3xl border-l border-amber-300/30 shadow-[0_0_20px_rgba(0,0,0,0.3)] md:hidden"
       >
         <div className="flex justify-between items-center px-6 py-4 border-b border-amber-300/40">
           <Link
@@ -169,19 +180,23 @@ export default function Navbar() {
             }}
             className="flex items-center gap-2 text-white"
           >
-            <img src="/images/logo.png" alt="Echo Logo" className="h-7 w-7" />
-            <span className="text-lg font-serif font-semibold">
-              Echo Getaways
-            </span>
+            <img src={logoImage} alt="Echo Logo" className="h-7 w-7" />
+            <span className="text-lg font-serif font-semibold">Echo Getaways</span>
           </Link>
           <button onClick={() => setMenuOpen(false)} className="text-white">
             <X size={22} />
           </button>
         </div>
 
-        <ul className="flex flex-col gap-6 px-8 py-8 text-lg text-white">
-          {navItems.map((item) => (
-            <li key={item.to}>
+        <ul className="flex flex-col space-y-5 px-8 py-8 text-base text-white">
+          {navItems.map((item, i) => (
+            <motion.li
+              key={item.to}
+              custom={i}
+              initial="hidden"
+              animate={menuOpen ? "visible" : "hidden"}
+              variants={drawerItemVariants}
+            >
               <NavLink
                 to={item.to}
                 onClick={() => {
@@ -191,23 +206,24 @@ export default function Navbar() {
                 }}
                 className={({ isActive }) =>
                   `block py-1 transition-all duration-200 ${
-                    isActive
-                      ? "text-amber-200 font-semibold"
-                      : "hover:text-amber-100"
+                    isActive ? "text-amber-200 font-semibold" : "hover:text-amber-100"
                   }`
                 }
               >
                 {item.label}
               </NavLink>
-            </li>
+            </motion.li>
           ))}
 
           {/* Mobile Contact + WhatsApp */}
-          <li className="pt-4 border-t border-amber-300/40 space-y-3">
-            <a
-              href="tel:+919876543210"
-              className="flex items-center gap-2 text-white hover:text-amber-200"
-            >
+          <motion.li
+            className="pt-4 border-t border-amber-300/40 space-y-3"
+            initial="hidden"
+            animate={menuOpen ? "visible" : "hidden"}
+            custom={navItems.length}
+            variants={drawerItemVariants}
+          >
+            <a href="tel:+919876543210" className="flex items-center gap-2 text-white hover:text-amber-200">
               <Phone size={18} /> +91 98765 43210
             </a>
             <a
@@ -218,14 +234,14 @@ export default function Navbar() {
             >
               <MessageCircle size={18} /> WhatsApp
             </a>
-          </li>
+          </motion.li>
         </ul>
-      </div>
+      </motion.div>
 
-      {/* Overlay */}
+      {/* === Overlay (Fixed Blur Issue + Tap to Close) === */}
       {menuOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden"
+          className="fixed inset-0 z-[50] bg-black/60 md:backdrop-blur-sm"
           onClick={() => setMenuOpen(false)}
         ></div>
       )}

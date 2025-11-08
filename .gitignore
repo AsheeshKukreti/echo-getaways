@@ -22,3 +22,7 @@ Thumbs.db
 
 # optional
 package-lock.json
+
+Admin-Email-Template.html
+Auto-Reply-Email-Template.html
+Steps.txt
