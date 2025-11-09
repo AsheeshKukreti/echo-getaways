@@ -133,15 +133,24 @@ export default function ContactForm(): JSX.Element {
         </Field>
 
         {/* Country: improved select styling */}
+        {/* 🌍 Country Dropdown */}
         <Field icon={<Globe size={18} />}>
-          <div className="relative">
+          <motion.div
+            initial={{ scale: 1, boxShadow: "0px 0px 0px rgba(0,0,0,0)" }}
+            whileFocus={{
+              scale: 1.02,
+              boxShadow: "0px 0px 12px rgba(251, 191, 36, 0.4)", // amber glow
+            }}
+            transition={{ duration: 0.25 }}
+            className="relative w-full rounded-xl"
+          >
             <select
               name="country"
               required
               value={form.country}
               onChange={handleChange}
               aria-label="Country"
-              className="w-full appearance-none bg-transparent border-none outline-none text-gray-800 text-sm pr-8"
+              className="w-full appearance-none bg-white/60 backdrop-blur-sm border border-amber-200/60 rounded-xl px-3 py-2 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200 pr-8"
             >
               <option value="">Select Country *</option>
               <option value="India">India</option>
@@ -150,11 +159,12 @@ export default function ContactForm(): JSX.Element {
               <option value="Australia">Australia</option>
               <option value="Other">Other</option>
             </select>
-            <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-gray-500">
+            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-amber-600">
               <ChevronDown size={16} />
             </span>
-          </div>
+          </motion.div>
         </Field>
+
 
         <Field icon={<Phone size={18} />}>
           <input
@@ -181,14 +191,23 @@ export default function ContactForm(): JSX.Element {
         </Field>
 
         {/* Trip Type select with same visual style */}
+        {/* 🗺️ Trip Type Dropdown */}
         <Field icon={<MapPin size={18} />}>
-          <div className="relative">
+          <motion.div
+            initial={{ scale: 1, boxShadow: "0px 0px 0px rgba(0,0,0,0)" }}
+            whileFocus={{
+              scale: 1.02,
+              boxShadow: "0px 0px 12px rgba(16, 185, 129, 0.35)", // emerald glow
+            }}
+            transition={{ duration: 0.25 }}
+            className="relative w-full rounded-xl"
+          >
             <select
               name="tripType"
               value={form.tripType}
               onChange={handleChange}
               aria-label="Trip Type"
-              className="w-full appearance-none bg-transparent border-none outline-none text-gray-800 text-sm pr-8"
+              className="w-full appearance-none bg-white/60 backdrop-blur-sm border border-emerald-200/60 rounded-xl px-3 py-2 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-200 pr-8"
             >
               <option value="">Select Trip Type (optional)</option>
               <option value="Cultural">Cultural Immersion</option>
@@ -197,10 +216,10 @@ export default function ContactForm(): JSX.Element {
               <option value="Wellness">Wellness Retreat</option>
               <option value="Spiritual">Spiritual Journey</option>
             </select>
-            <span className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-gray-500">
+            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-emerald-600">
               <ChevronDown size={16} />
             </span>
-          </div>
+          </motion.div>
         </Field>
 
         <div className="md:col-span-2">
