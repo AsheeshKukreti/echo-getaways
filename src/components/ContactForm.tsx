@@ -1,6 +1,6 @@
 // src/components/ContactForm.tsx
-import React, { useState, useEffect } from "react";
-import { sendInquiry } from "../services/contactService";
+import React, { useState, memo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
   Mail,
@@ -10,256 +10,219 @@ import {
   MessageSquare,
   CheckCircle,
   XCircle,
+  MapPin,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { sendInquiry } from "../services/contactService";
+
+// 🧩 Memoized Input Wrapper to prevent unnecessary re-renders
+const Field = memo(function Field({
+  icon,
+  children,
+}: {
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex items-center bg-white/70 backdrop-blur-md border border-white/40 rounded-2xl shadow-sm px-3 py-2.5 focus-within:ring-2 focus-within:ring-amber-300 transition-all duration-200">
+      <div className="text-amber-600 mr-3 flex-shrink-0">{icon}</div>
+      <div className="flex-1">{children}</div>
+    </div>
+  );
+});
 
 export default function ContactForm(): JSX.Element {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("");
-  const [phone, setPhone] = useState("");
-  const [dates, setDates] = useState("");
-  const [message, setMessage] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    country: "",
+    phone: "",
+    dates: "",
+    tripType: "",
+    message: "",
+  });
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<string | null>(null);
 
-  // Submit handler (keeps your existing sendInquiry contract)
+  // Controlled input handler
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Form submit logic
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
-
     try {
-      const res = await sendInquiry({ name, email, phone, message, country, dates });
-      setStatus(res.message ?? "Enquiry submitted.");
-      if (res.success) {
-        setName("");
-        setEmail("");
-        setCountry("");
-        setPhone("");
-        setDates("");
-        setMessage("");
-      }
+      const res = await sendInquiry(form);
+      setStatus(
+        res.success
+          ? "✨ Thank you! Your enquiry has been received — our travel curator will reach out soon."
+          : "❌ Oops! Something went wrong. Please try again later."
+      );
+      if (res.success)
+        setForm({
+          name: "",
+          email: "",
+          country: "",
+          phone: "",
+          dates: "",
+          tripType: "",
+          message: "",
+        });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      console.error("sendInquiry error", err);
-      setStatus("Something went wrong — please try again.");
+      console.error(err);
+      setStatus("❌ Error sending your message. Please retry.");
     } finally {
       setLoading(false);
-      // auto-hide after a short while
       setTimeout(() => setStatus(null), 4000);
     }
   }
 
-  // Small helper: floating-label input group
-  const FieldGroup = ({
-    id,
-    icon,
-    children,
-    required = false,
-    className = "",
-  }: {
-    id?: string;
-    icon: React.ReactNode;
-    children: React.ReactNode;
-    required?: boolean;
-    className?: string;
-  }) => (
-    <div
-      className={`flex items-center bg-white/90 border border-gray-200 rounded-2xl shadow-sm px-3 py-2.5 focus-within:ring-2 focus-within:ring-amber-300 transition ${className}`}
-    >
-      <div className="text-amber-600 mr-3 flex-shrink-0">{icon}</div>
-      <div className="flex-1 relative">{children}</div>
-    </div>
-  );
-
   return (
-    <>
-      <form
-        onSubmit={handleSubmit}
-        className="max-w-3xl mx-auto w-full p-4 sm:p-6 bg-gradient-to-b from-amber-50 to-emerald-50 rounded-3xl shadow-lg"
-      >
-        <h3 className="text-2xl font-serif font-semibold text-emerald-700 mb-4 text-center">
-          Send Us a Message
-        </h3>
+    <motion.form
+      onSubmit={handleSubmit}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="max-w-3xl mx-auto w-full px-4 py-8 sm:p-10 bg-gradient-to-b from-amber-100/70 to-emerald-100/70 backdrop-blur-2xl border border-white/30 rounded-3xl shadow-2xl"
+    >
+      <h3 className="text-3xl font-serif font-semibold text-emerald-800 mb-8 text-center">
+        Plan Your Next Journey
+      </h3>
 
-        {/* grid: single column on small, two columns on md+ */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-          {/* Name */}
-          <FieldGroup icon={<User size={18} />}>
-            <input
-              id="name"
-              type="text"
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Field icon={<User size={18} />}>
+          <input
+            name="name"
+            type="text"
+            required
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Full Name *"
+            className="w-full bg-transparent border-none outline-none text-gray-800 text-sm placeholder-gray-500 focus:ring-0"
+          />
+        </Field>
+
+        <Field icon={<Mail size={18} />}>
+          <input
+            name="email"
+            type="email"
+            required
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Email *"
+            className="w-full bg-transparent border-none outline-none text-gray-800 text-sm placeholder-gray-500 focus:ring-0"
+          />
+        </Field>
+
+        <Field icon={<Globe size={18} />}>
+          <select
+            name="country"
+            required
+            value={form.country}
+            onChange={handleChange}
+            className="w-full bg-transparent border-none outline-none text-gray-800 text-sm appearance-none focus:ring-0"
+          >
+            <option value="">Select Country *</option>
+            <option value="India">India</option>
+            <option value="USA">United States</option>
+            <option value="UK">United Kingdom</option>
+            <option value="Australia">Australia</option>
+            <option value="Other">Other</option>
+          </select>
+        </Field>
+
+        <Field icon={<Phone size={18} />}>
+          <input
+            name="phone"
+            type="tel"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="Phone (optional)"
+            className="w-full bg-transparent border-none outline-none text-gray-800 text-sm placeholder-gray-500 focus:ring-0"
+          />
+        </Field>
+
+        <Field icon={<Calendar size={18} />}>
+          <input
+            name="dates"
+            type="text"
+            value={form.dates}
+            onChange={handleChange}
+            placeholder="Preferred Travel Dates (optional)"
+            className="w-full bg-transparent border-none outline-none text-gray-800 text-sm placeholder-gray-500 focus:ring-0"
+          />
+        </Field>
+
+        <Field icon={<MapPin size={18} />}>
+          <select
+            name="tripType"
+            value={form.tripType}
+            onChange={handleChange}
+            className="w-full bg-transparent border-none outline-none text-gray-800 text-sm appearance-none focus:ring-0"
+          >
+            <option value="">Select Trip Type (optional)</option>
+            <option value="Cultural">Cultural Immersion</option>
+            <option value="Adventure">Adventure Escape</option>
+            <option value="Luxury">Luxury Experience</option>
+            <option value="Wellness">Wellness Retreat</option>
+            <option value="Spiritual">Spiritual Journey</option>
+          </select>
+        </Field>
+
+        <div className="md:col-span-2">
+          <Field icon={<MessageSquare size={18} />}>
+            <textarea
+              name="message"
               required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Full Name"
-              aria-label="Full Name"
-              className="peer w-full bg-transparent border-none outline-none placeholder-transparent text-gray-800 text-sm"
+              rows={5}
+              value={form.message}
+              onChange={handleChange}
+              placeholder="Tell us about your dream trip..."
+              className="w-full bg-transparent border-none outline-none text-gray-800 text-sm resize-none placeholder-gray-500 focus:ring-0"
             />
-            <label
-              htmlFor="name"
-              className="absolute left-0 -top-2.5 text-xs text-gray-600 bg-amber-50 px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 transition-all"
-            >
-              Full Name *
-            </label>
-          </FieldGroup>
-
-          {/* Email */}
-          <FieldGroup icon={<Mail size={18} />}>
-            <input
-              id="email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              aria-label="Email"
-              className="peer w-full bg-transparent border-none outline-none placeholder-transparent text-gray-800 text-sm"
-            />
-            <label
-              htmlFor="email"
-              className="absolute left-0 -top-2.5 text-xs text-gray-600 bg-amber-50 px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 transition-all"
-            >
-              Email *
-            </label>
-          </FieldGroup>
-
-          {/* Country */}
-          <FieldGroup icon={<Globe size={18} />}>
-            <select
-              id="country"
-              required
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              aria-label="Country"
-              className="w-full bg-transparent border-none outline-none text-gray-800 text-sm appearance-none"
-            >
-              <option value="">Select Country</option>
-              <option value="India">India</option>
-              <option value="USA">United States</option>
-              <option value="UK">United Kingdom</option>
-              <option value="Australia">Australia</option>
-              <option value="Other">Other</option>
-            </select>
-            <label
-              htmlFor="country"
-              className="absolute left-0 -top-2.5 text-xs text-gray-600 bg-amber-50 px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 transition-all"
-            >
-              Country *
-            </label>
-          </FieldGroup>
-
-          {/* Phone */}
-          <FieldGroup icon={<Phone size={18} />}>
-            <input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone (optional)"
-              aria-label="Phone"
-              className="w-full bg-transparent border-none outline-none placeholder-transparent text-gray-800 text-sm"
-            />
-            <label
-              htmlFor="phone"
-              className="absolute left-0 -top-2.5 text-xs text-gray-600 bg-amber-50 px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 transition-all"
-            >
-              Phone (optional)
-            </label>
-          </FieldGroup>
-
-          {/* Preferred Dates - span full width on desktop grid but we keep it here as two-col entry */}
-          <div className="md:col-span-2">
-            <FieldGroup icon={<Calendar size={18} />}>
-              <input
-                id="dates"
-                type="text"
-                value={dates}
-                onChange={(e) => setDates(e.target.value)}
-                placeholder="Preferred Travel Dates (optional)"
-                aria-label="Preferred Travel Dates"
-                className="w-full bg-transparent border-none outline-none placeholder-transparent text-gray-800 text-sm"
-              />
-              <label
-                htmlFor="dates"
-                className="absolute left-0 -top-2.5 text-xs text-gray-600 bg-amber-50 px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 transition-all"
-              >
-                Preferred Travel Dates (optional)
-              </label>
-            </FieldGroup>
-          </div>
-
-          {/* Message - full width */}
-          <div className="md:col-span-2">
-            <FieldGroup icon={<MessageSquare size={18} />}>
-              <textarea
-                id="message"
-                required
-                rows={5}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Your message"
-                aria-label="Message"
-                className="w-full bg-transparent border-none outline-none placeholder-transparent text-gray-800 text-sm resize-none"
-              />
-              <label
-                htmlFor="message"
-                className="absolute left-0 -top-2.5 text-xs text-gray-600 bg-amber-50 px-1 peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:text-gray-400 transition-all"
-              >
-                Tell us about your trip *
-              </label>
-            </FieldGroup>
-          </div>
+          </Field>
         </div>
+      </div>
 
-        {/* actions */}
-        <div className="mt-4 md:mt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <div className="w-full md:w-auto">
-            <button
-              type="submit"
-              disabled={loading}
-              className={`w-full md:w-auto inline-flex items-center justify-center px-6 py-3 rounded-full font-semibold text-white shadow-md transition ${
-                loading
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-gradient-to-r from-amber-700 to-emerald-600 hover:opacity-95"
-              }`}
-            >
-              {loading ? "Sending..." : "Submit Enquiry"}
-            </button>
-          </div>
+      <div className="text-center mt-8">
+        <button
+          type="submit"
+          disabled={loading}
+          className={`px-10 py-3 rounded-full text-white font-semibold shadow-md transition-all duration-300 ${
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-gradient-to-r from-amber-700 to-emerald-600 hover:opacity-90 hover:shadow-lg hover:scale-[1.02]"
+          }`}
+        >
+          {loading ? "Sending..." : "Send Enquiry"}
+        </button>
+      </div>
 
-          <div className="text-sm text-gray-600 text-center md:text-right">
-            <div>Or contact us directly:</div>
-            <a href="tel:+919876543210" className="text-amber-700 font-medium hover:underline">
-              +91 98765 43210
-            </a>
-          </div>
-        </div>
-      </form>
-
-      {/* Toast / Status (floating) */}
+      {/* Toast */}
       <AnimatePresence>
         {status && (
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            transition={{ duration: 0.35 }}
-            className={`fixed left-1/2 -translate-x-1/2 bottom-8 px-5 py-3 rounded-full shadow-lg flex items-center gap-3 z-50 ${
-              status.toLowerCase().includes("thank")
+            exit={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.4 }}
+            className={`fixed bottom-[7vh] left-1/2 -translate-x-1/2 px-6 py-3 rounded-full shadow-lg flex items-center gap-2 text-sm font-medium z-50 ${
+              status.startsWith("✨")
                 ? "bg-gradient-to-r from-emerald-600 to-amber-600 text-white"
                 : "bg-red-600 text-white"
             }`}
           >
-            {status.toLowerCase().includes("thank") ? (
-              <CheckCircle size={18} />
-            ) : (
-              <XCircle size={18} />
-            )}
-            <span className="text-sm font-medium">{status}</span>
+            {status.startsWith("✨") ? <CheckCircle size={18} /> : <XCircle size={18} />}
+            {status}
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </motion.form>
   );
 }
