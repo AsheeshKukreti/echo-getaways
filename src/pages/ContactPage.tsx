@@ -1,8 +1,9 @@
+// src/pages/ContactPage.tsx
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
-import ContactForm from "../components/ContactForm"; // ✅ Import reusable form
+import ContactForm from "../components/ContactForm";
 import JourneyCTA from "../components/JourneyCTA";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
@@ -13,7 +14,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-[rgb(255,251,244)] text-gray-900">
-      {/* ================= HERO SECTION ================= */}
+      {/* HERO */}
       <section
         className="relative text-white bg-cover bg-center bg-fixed"
         style={{
@@ -43,7 +44,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ================= QUICK CONTACT INFO ================= */}
+      {/* QUICK CONTACT INFO */}
       <section className="max-w-6xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
         {[
           {
@@ -65,7 +66,7 @@ export default function ContactPage() {
             link: "https://maps.google.com",
           },
         ].map((item, i) => (
-          <motion.a
+          <a
             key={i}
             href={item.link}
             target="_blank"
@@ -77,37 +78,36 @@ export default function ContactPage() {
             <div className="text-4xl mb-3">{item.icon}</div>
             <h3 className="text-lg font-semibold text-amber-700">{item.title}</h3>
             <p className="text-gray-700 mt-1">{item.detail}</p>
-          </motion.a>
+          </a>
         ))}
       </section>
 
-      {/* ================= CONTACT FORM (Reusable Component) ================= */}
-      <section
-        id="contact-form"
-        className="max-w-5xl mx-auto px-6 py-16"
-        data-aos="fade-up"
-      >
-        <ContactForm /> {/* ✅ Replaces the inline form */}
-      </section>
-
-      {/* ================= MAP SECTION (optional) ================= */}
-      {/* 
-      <section className="mt-16 max-w-6xl mx-auto px-6" data-aos="fade-up">
-        <h3 className="text-xl font-semibold text-amber-700 mb-4 text-center">Find Us Here</h3>
-        <div className="rounded-3xl overflow-hidden shadow-lg">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!...your-map..."
-            width="100%"
-            height="350"
-            allowFullScreen
-            loading="lazy"
-            className="border-0 w-full rounded-3xl"
-          ></iframe>
+      {/* CONTACT FORM */}
+      <section id="contact-form" className="max-w-5xl mx-auto px-6 py-12" data-aos="fade-up">
+        <ContactForm />
+        {/* direct contact option (visible on all sizes) */}
+        <div className="mt-8 text-center">
+          <p className="text-sm text-gray-700 mb-3">Prefer a quick chat? Reach us directly:</p>
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-3">
+            <a
+              href="tel:+919876543210"
+              className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-amber-700 text-white font-medium shadow-md hover:bg-amber-800 transition"
+            >
+              📞 +91 98765 43210
+            </a>
+            <a
+              href="https://wa.me/919876543210?text=Hi%20Echo%20Getaways!%20I%27m%20interested%20in%20planning%20a%20trip."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-emerald-700 text-white font-medium shadow-md hover:bg-emerald-800 transition"
+            >
+              💬 WhatsApp
+            </a>
+          </div>
         </div>
       </section>
-      */}
 
-      {/* ================= CTA + Scroll To Top ================= */}
+      {/* CTA + ScrollToTop */}
       <JourneyCTA />
       <ScrollToTopButton />
     </main>

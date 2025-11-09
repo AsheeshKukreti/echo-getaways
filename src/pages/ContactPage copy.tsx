@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
-import emailjs from "emailjs-com";
+import ContactForm from "../components/ContactForm"; // ✅ Import reusable form
 import JourneyCTA from "../components/JourneyCTA";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 
@@ -11,75 +11,9 @@ export default function ContactPage() {
     AOS.init({ duration: 900, once: true });
   }, []);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    country: "",
-    phone: "",
-    dates: "",
-    message: "",
-  });
-
-  const [isSending, setIsSending] = useState(false);
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSending(true);
-    setStatusMessage(null);
-
-    try {
-      // 1️⃣ Send enquiry to admin
-      await emailjs.send(
-        "YOUR_SERVICE_ID",        // e.g. service_xyz123
-        "YOUR_TEMPLATE_ID_ADMIN", // e.g. template_admin123
-        formData,
-        "YOUR_PUBLIC_KEY"         // e.g. XXXXXXXXXXXXX
-      );
-
-      // 2️⃣ Auto-send elegant thank-you to the user
-      await emailjs.send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID_USER",  // second template for auto-reply
-        {
-          name: formData.name,
-          email: formData.email,
-        },
-        "YOUR_PUBLIC_KEY"
-      );
-
-      setStatusMessage(
-        "✨ Thank you for reaching out to Echo Getaways. Your enquiry has been received — one of our travel curators will connect with you soon to help design a journey that truly echoes in your heart."
-      );
-
-      setFormData({
-        name: "",
-        email: "",
-        country: "",
-        phone: "",
-        dates: "",
-        message: "",
-      });
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch (error) {
-      console.error("EmailJS Error:", error);
-      setStatusMessage("❌ Oops! Something went wrong. Please try again later.");
-    } finally {
-      setIsSending(false);
-    }
-  };
-
   return (
     <main className="min-h-screen bg-[rgb(255,251,244)] text-gray-900">
-      {/* HERO SECTION */}
+      {/* ================= HERO SECTION ================= */}
       <section
         className="relative text-white bg-cover bg-center bg-fixed"
         style={{
@@ -96,6 +30,7 @@ export default function ContactPage() {
           >
             Contact <span className="text-amber-400">Echo Getaways</span>
           </motion.h1>
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -103,12 +38,12 @@ export default function ContactPage() {
             className="text-base sm:text-lg md:text-xl text-amber-100 max-w-2xl mx-auto"
           >
             We’d love to hear from you! Whether it’s a travel idea, feedback, or a question — reach
-            out and let’s begin your next journey.
+            out and let’s begin your next journey together.
           </motion.p>
         </div>
       </section>
 
-      {/* QUICK CONTACT INFO */}
+      {/* ================= QUICK CONTACT INFO ================= */}
       <section className="max-w-6xl mx-auto px-6 py-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
         {[
           {
@@ -146,131 +81,33 @@ export default function ContactPage() {
         ))}
       </section>
 
-      {/* CONTACT FORM */}
+      {/* ================= CONTACT FORM (Reusable Component) ================= */}
       <section
         id="contact-form"
-        className="max-w-4xl mx-auto px-6 py-16 bg-white/70 backdrop-blur-md rounded-3xl shadow-lg border border-amber-100"
+        className="max-w-5xl mx-auto px-6 py-16"
         data-aos="fade-up"
       >
-        <h2 className="text-2xl sm:text-3xl font-serif font-semibold text-center text-emerald-700 mb-8">
-          Send Us a Message
-        </h2>
-
-        {/* Status Alert */}
-        {statusMessage && (
-          <div
-            className={`text-center mb-6 px-4 py-3 rounded-md font-medium ${
-              statusMessage.startsWith("✨") || statusMessage.startsWith("✅")
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
-            }`}
-          >
-            {statusMessage}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700">Name *</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              placeholder="Your full name"
-            />
-          </div>
-
-          <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700">Email *</label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700">Country *</label>
-            <select
-              name="country"
-              value={formData.country}
-              onChange={handleChange}
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-            >
-              <option value="">Select country</option>
-              <option value="India">India</option>
-              <option value="USA">United States</option>
-              <option value="UK">United Kingdom</option>
-              <option value="Australia">Australia</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div className="col-span-1">
-            <label className="block text-sm font-medium text-gray-700">Phone (optional)</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              placeholder="+91 98765 43210"
-            />
-          </div>
-
-          <div className="col-span-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Preferred Travel Dates *
-            </label>
-            <input
-              type="text"
-              name="dates"
-              value={formData.dates}
-              onChange={handleChange}
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              placeholder="e.g., December 2025 or Flexible"
-            />
-          </div>
-
-          <div className="col-span-2">
-            <label className="block text-sm font-medium text-gray-700">Message *</label>
-            <textarea
-              name="message"
-              rows={5}
-              value={formData.message}
-              onChange={handleChange}
-              required
-              className="mt-1 w-full rounded-md border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-              placeholder="Tell us about your travel ideas..."
-            />
-          </div>
-
-          <div className="col-span-2 text-center mt-4">
-            <button
-              type="submit"
-              disabled={isSending}
-              className={`px-8 py-3 rounded-md font-medium transition-all ${
-                isSending
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-amber-600 text-white hover:bg-amber-700"
-              }`}
-            >
-              {isSending ? "Sending..." : "Submit Enquiry"}
-            </button>
-          </div>
-        </form>
+        <ContactForm /> {/* ✅ Replaces the inline form */}
       </section>
 
-      {/* CTA + ScrollToTop */}
+      {/* ================= MAP SECTION (optional) ================= */}
+      {/* 
+      <section className="mt-16 max-w-6xl mx-auto px-6" data-aos="fade-up">
+        <h3 className="text-xl font-semibold text-amber-700 mb-4 text-center">Find Us Here</h3>
+        <div className="rounded-3xl overflow-hidden shadow-lg">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!...your-map..."
+            width="100%"
+            height="350"
+            allowFullScreen
+            loading="lazy"
+            className="border-0 w-full rounded-3xl"
+          ></iframe>
+        </div>
+      </section>
+      */}
+
+      {/* ================= CTA + Scroll To Top ================= */}
       <JourneyCTA />
       <ScrollToTopButton />
     </main>
