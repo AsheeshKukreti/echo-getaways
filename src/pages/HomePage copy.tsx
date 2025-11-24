@@ -3,8 +3,10 @@ import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { motion } from "framer-motion";
+import { Helmet } from "react-helmet";
 import JourneyCTA from "../components/JourneyCTA";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import ServicesShowcase from "../components/ServicesShowcase";
 
 export default function HomePage() {
   useEffect(() => {
@@ -15,17 +17,17 @@ export default function HomePage() {
     {
       title: "500+ Curated Trips",
       desc: "Handpicked experiences across mountains, beaches, and heritage cities.",
-      img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80",
+      img: "https://t3.ftcdn.net/jpg/15/95/51/10/240_F_1595511027_Ki4Hs84Gqs5RbjVE3JAs8VR7Opd3t04F.jpg",
     },
     {
       title: "Trusted Travel Experts",
       desc: "Over 15 years crafting personalized itineraries across India.",
-      img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      img: "https://t4.ftcdn.net/jpg/17/14/71/33/240_F_1714713356_0Xc7JyTiF55qYJan25saWRyg2jTKJtYl.jpg",
     },
     {
       title: "Seamless Planning",
       desc: "From inspiration to booking — we handle every detail with care.",
-      img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80",
+      img: "https://t4.ftcdn.net/jpg/15/42/88/83/240_F_1542888361_D9vEhveAdxX4PX2NxzlreByfkcIXgeKz.jpg",
     },
   ];
 
@@ -37,14 +39,25 @@ export default function HomePage() {
   ];
 
   return (
-    <main className="min-h-screen bg-[rgb(255,251,244)] text-gray-900">
+    <main className="min-h-screen bg-[rgb(255,251,244)] text-gray-900 scroll-smooth">
+      <Helmet>
+        <title>Echo Getaways | Discover the Soul of India</title>
+        <meta
+          name="description"
+          content="Curated experiences, cultural journeys, and authentic travel circuits across India. Plan your perfect trip with Echo Getaways."
+        />
+      </Helmet>
+
       {/* HERO SECTION */}
-      <section
-        className="relative bg-cover bg-center text-white overflow-hidden"
+      <motion.section
+        className="relative bg-cover bg-center bg-fixed text-white overflow-hidden"
         style={{
           backgroundImage:
-            "linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80')",
+            "linear-gradient(700deg, rgba(0,0,0,0.35), rgba(0,0,0,0.55)), url('https://t3.ftcdn.net/jpg/02/94/60/98/240_F_294609859_wztl0ljhTYvBDixUNZiwZFoxQvnbTYrF.jpg')",
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
       >
         <div className="max-w-6xl mx-auto px-6 py-32 text-center">
           <motion.h1
@@ -90,10 +103,20 @@ export default function HomePage() {
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-white/80 animate-bounce">
           ↓ Scroll to Explore
         </div>
-      </section>
+      </motion.section>
+
+      {/* Fade separator */}
+      <div className="h-16 bg-gradient-to-b from-transparent to-amber-50" />
 
       {/* HIGHLIGHTS */}
-      <section className="max-w-7xl mx-auto py-20 px-6 grid md:grid-cols-3 gap-8 text-center">
+      <motion.section
+        id="highlights"
+        className="max-w-7xl mx-auto py-20 px-6 grid md:grid-cols-3 gap-8 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.2 }}
+      >
         {highlights.map((item, i) => (
           <motion.div
             key={i}
@@ -103,15 +126,30 @@ export default function HomePage() {
           >
             <img src={item.img} alt={item.title} className="h-56 w-full object-cover" />
             <div className="p-6">
-              <h3 className="text-lg sm:text-xl font-semibold text-amber-700 mb-2 font-serif">{item.title}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-amber-700 mb-2 font-serif">
+                {item.title}
+              </h3>
               <p className="text-gray-700 text-sm sm:text-base">{item.desc}</p>
             </div>
           </motion.div>
         ))}
-      </section>
+      </motion.section>
+
+      {/* 🔹 NEW: SERVICES SHOWCASE (Flights, Hotels, Transfers, etc.) */}
+      <ServicesShowcase />
+
+      {/* Fade separator */}
+      <div className="h-16 bg-gradient-to-b from-amber-50 to-amber-100" />
 
       {/* FEATURED EXPERIENCES */}
-      <section className="bg-gradient-to-b from-amber-50 to-amber-100 py-20 px-6 text-center">
+      <motion.section
+        id="experiences"
+        className="bg-gradient-to-b from-amber-50 to-amber-100 py-20 px-6 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <div className="max-w-6xl mx-auto">
           <h2
             className="text-2xl sm:text-3xl md:text-4xl font-serif font-semibold text-amber-800 mb-4"
@@ -129,9 +167,18 @@ export default function HomePage() {
 
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {[
-              { title: "Cultural Immersions", img: "https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" },
-              { title: "Adventure Trails", img: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80" },
-              { title: "Luxury Escapes", img: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+              {
+                title: "Cultural Immersions",
+                img: "https://t3.ftcdn.net/jpg/16/47/10/60/240_F_1647106085_3MMQQiQ0UFFVVGYXYKh8nbY5X65op6ro.jpg",
+              },
+              {
+                title: "Adventure Trails",
+                img: "https://t3.ftcdn.net/jpg/03/29/46/98/240_F_329469804_nWKvZPy16UA0xqQRZkUPN8EOobsPVlx9.jpg",
+              },
+              {
+                title: "Luxury Escapes",
+                img: "https://t3.ftcdn.net/jpg/17/33/77/02/240_F_1733770257_xf722dJWdLNLOjFYB3oGcd6WGE16KEYL.jpg",
+              },
             ].map((exp, i) => (
               <motion.div
                 key={i}
@@ -141,7 +188,9 @@ export default function HomePage() {
               >
                 <img src={exp.img} alt={exp.title} className="h-40 w-full object-cover" />
                 <div className="p-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-amber-700 font-serif">{exp.title}</h4>
+                  <h4 className="text-base sm:text-lg font-semibold text-amber-700 font-serif">
+                    {exp.title}
+                  </h4>
                 </div>
               </motion.div>
             ))}
@@ -154,10 +203,20 @@ export default function HomePage() {
             View All Experiences
           </a>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Fade separator */}
+      <div className="h-16 bg-gradient-to-b from-amber-100 to-transparent" />
 
       {/* WHY TRAVEL WITH US */}
-      <section className="max-w-7xl mx-auto py-20 px-6 text-center">
+      <motion.section
+        id="why-us"
+        className="max-w-7xl mx-auto py-20 px-6 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <h2
           className="text-2xl sm:text-3xl font-serif font-semibold text-amber-800 mb-10"
           data-aos="fade-up"
@@ -178,7 +237,7 @@ export default function HomePage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* CTA + Scroll to Top */}
       <JourneyCTA />

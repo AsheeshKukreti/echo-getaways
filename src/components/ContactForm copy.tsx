@@ -13,11 +13,9 @@ import {
   MapPin,
   ChevronDown,
 } from "lucide-react";
-import { sendInquiry } from "../services/contactService";
 import emailjs from "emailjs-com";
 
-
-// Memoized wrapper to reduce re-renders
+// 🧩 Memoized field wrapper
 const Field = memo(function Field({
   icon,
   children,
@@ -38,6 +36,12 @@ const Field = memo(function Field({
 });
 
 export default function ContactForm(): JSX.Element {
+  // 📩 EmailJS Config
+  const SERVICE_ID = "service_v0titz3"; // replace with your EmailJS service ID
+  const TEMPLATE_ADMIN = "template_7izevdt"; // replace with your admin template ID
+  const TEMPLATE_USER = "template_2o8el5i"; // replace with your user template ID
+  const PUBLIC_KEY = "_dGr2iPH6InLE2GI-"; // replace with your public key
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -58,40 +62,59 @@ export default function ContactForm(): JSX.Element {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Submit - uses your sendInquiry service
+  // 📤 Submit Handler
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     setStatus(null);
 
     try {
-      const res = await sendInquiry(form);
-      setStatus(
-        res.success
-          ? "✨ Thank you! Your enquiry has been received — our travel curator will reach out soon."
-          : "❌ Oops! Something went wrong. Please try again later."
+      // 1️⃣ Send email to admin
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ADMIN,
+        {
+          ...form,
+          to_email: "hello@echogetaways.in",
+        },
+        PUBLIC_KEY
       );
 
-      if (res.success) {
-        setForm({
-          name: "",
-          email: "",
-          country: "",
-          phone: "",
-          dates: "",
-          tripType: "",
-          message: "",
-        });
-        // scroll to top so user sees toast (page-level)
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
+      // 2️⃣ Send thank-you auto-response to user
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_USER,
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        PUBLIC_KEY
+      );
+
+      setStatus(
+        "✨ Thank you! Your enquiry has been received — our travel curator will reach out soon."
+      );
+
+      setForm({
+        name: "",
+        email: "",
+        country: "",
+        phone: "",
+        dates: "",
+        tripType: "",
+        message: "",
+      });
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      console.error("sendInquiry error:", err);
-      setStatus("❌ Error sending your message. Please retry or email hello@echogetaways.in");
+      console.error("EmailJS Error:", err);
+      setStatus(
+        "❌ Error sending your message. Please retry or email hello@echogetaways.in"
+      );
     } finally {
       setLoading(false);
-      // auto-hide toast after a short time
-      setTimeout(() => setStatus(null), 4500);
+      setTimeout(() => setStatus(null), 5000);
     }
   }
 
@@ -134,25 +157,16 @@ export default function ContactForm(): JSX.Element {
           />
         </Field>
 
-        {/* Country: improved select styling */}
         {/* 🌍 Country Dropdown */}
         <Field icon={<Globe size={18} />}>
-          <motion.div
-            initial={{ scale: 1, boxShadow: "0px 0px 0px rgba(0,0,0,0)" }}
-            whileFocus={{
-              scale: 1.02,
-              boxShadow: "0px 0px 12px rgba(251, 191, 36, 0.4)", // amber glow
-            }}
-            transition={{ duration: 0.25 }}
-            className="relative w-full rounded-xl"
-          >
+          <motion.div className="relative w-full rounded-xl">
             <select
               name="country"
               required
               value={form.country}
               onChange={handleChange}
               aria-label="Country"
-              className="w-full appearance-none bg-white/60 backdrop-blur-sm border border-amber-200/60 rounded-xl px-3 py-2 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200 pr-8"
+              className="w-full appearance-none bg-white/60 backdrop-blur-sm border border-amber-200/60 rounded-xl px-3 py-2 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-amber-400 transition-all duration-200 pr-8"
             >
               <option value="">Select Country *</option>
               <option value="India">India</option>
@@ -166,7 +180,6 @@ export default function ContactForm(): JSX.Element {
             </span>
           </motion.div>
         </Field>
-
 
         <Field icon={<Phone size={18} />}>
           <input
@@ -192,24 +205,15 @@ export default function ContactForm(): JSX.Element {
           />
         </Field>
 
-        {/* Trip Type select with same visual style */}
         {/* 🗺️ Trip Type Dropdown */}
         <Field icon={<MapPin size={18} />}>
-          <motion.div
-            initial={{ scale: 1, boxShadow: "0px 0px 0px rgba(0,0,0,0)" }}
-            whileFocus={{
-              scale: 1.02,
-              boxShadow: "0px 0px 12px rgba(16, 185, 129, 0.35)", // emerald glow
-            }}
-            transition={{ duration: 0.25 }}
-            className="relative w-full rounded-xl"
-          >
+          <motion.div className="relative w-full rounded-xl">
             <select
               name="tripType"
               value={form.tripType}
               onChange={handleChange}
               aria-label="Trip Type"
-              className="w-full appearance-none bg-white/60 backdrop-blur-sm border border-emerald-200/60 rounded-xl px-3 py-2 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all duration-200 pr-8"
+              className="w-full appearance-none bg-white/60 backdrop-blur-sm border border-emerald-200/60 rounded-xl px-3 py-2 text-gray-800 text-sm outline-none focus:ring-2 focus:ring-emerald-400 transition-all duration-200 pr-8"
             >
               <option value="">Select Trip Type (optional)</option>
               <option value="Cultural">Cultural Immersion</option>
@@ -224,6 +228,7 @@ export default function ContactForm(): JSX.Element {
           </motion.div>
         </Field>
 
+        {/* 📝 Message */}
         <div className="md:col-span-2">
           <Field icon={<MessageSquare size={18} />}>
             <textarea
@@ -240,6 +245,7 @@ export default function ContactForm(): JSX.Element {
         </div>
       </div>
 
+      {/* 🌟 Submit Button */}
       <div className="text-center mt-6">
         <button
           type="submit"
@@ -247,14 +253,14 @@ export default function ContactForm(): JSX.Element {
           className={`px-8 py-2.5 rounded-full text-white font-semibold shadow-md transition-all duration-200 ${
             loading
               ? "bg-gray-400 cursor-not-allowed"
-              : "bg-gradient-to-r from-amber-700 to-emerald-600 hover:opacity-95"
+              : "bg-gradient-to-r from-amber-700 to-emerald-600 hover:opacity-95 hover:scale-[1.02]"
           }`}
         >
           {loading ? "Sending..." : "Send Enquiry"}
         </button>
       </div>
 
-      {/* Floating toast/status */}
+      {/* 📢 Toast Feedback */}
       <AnimatePresence>
         {status && (
           <motion.div
@@ -268,7 +274,11 @@ export default function ContactForm(): JSX.Element {
                 : "bg-red-600 text-white"
             }`}
           >
-            {status.toLowerCase().includes("thank") ? <CheckCircle size={18} /> : <XCircle size={18} />}
+            {status.toLowerCase().includes("thank") ? (
+              <CheckCircle size={18} />
+            ) : (
+              <XCircle size={18} />
+            )}
             <span className="text-sm font-medium">{status}</span>
           </motion.div>
         )}

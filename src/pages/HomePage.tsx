@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import JourneyCTA from "../components/JourneyCTA";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import ServicesShowcase from "../components/ServicesShowcase";
 
 export default function HomePage() {
   useEffect(() => {
@@ -125,12 +126,17 @@ export default function HomePage() {
           >
             <img src={item.img} alt={item.title} className="h-56 w-full object-cover" />
             <div className="p-6">
-              <h3 className="text-lg sm:text-xl font-semibold text-amber-700 mb-2 font-serif">{item.title}</h3>
+              <h3 className="text-lg sm:text-xl font-semibold text-amber-700 mb-2 font-serif">
+                {item.title}
+              </h3>
               <p className="text-gray-700 text-sm sm:text-base">{item.desc}</p>
             </div>
           </motion.div>
         ))}
       </motion.section>
+
+      {/* 🔹 NEW: SERVICES SHOWCASE (Flights, Hotels, Transfers, etc.) */}
+      <ServicesShowcase />
 
       {/* Fade separator */}
       <div className="h-16 bg-gradient-to-b from-amber-50 to-amber-100" />
@@ -161,9 +167,18 @@ export default function HomePage() {
 
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             {[
-              { title: "Cultural Immersions", img: "https://t3.ftcdn.net/jpg/16/47/10/60/240_F_1647106085_3MMQQiQ0UFFVVGYXYKh8nbY5X65op6ro.jpg" },
-              { title: "Adventure Trails", img: "https://t3.ftcdn.net/jpg/03/29/46/98/240_F_329469804_nWKvZPy16UA0xqQRZkUPN8EOobsPVlx9.jpg" },
-              { title: "Luxury Escapes", img: "https://t3.ftcdn.net/jpg/17/33/77/02/240_F_1733770257_xf722dJWdLNLOjFYB3oGcd6WGE16KEYL.jpg" },
+              {
+                title: "Cultural Immersions",
+                img: "https://t3.ftcdn.net/jpg/16/47/10/60/240_F_1647106085_3MMQQiQ0UFFVVGYXYKh8nbY5X65op6ro.jpg",
+              },
+              {
+                title: "Adventure Trails",
+                img: "https://t3.ftcdn.net/jpg/03/29/46/98/240_F_329469804_nWKvZPy16UA0xqQRZkUPN8EOobsPVlx9.jpg",
+              },
+              {
+                title: "Luxury Escapes",
+                img: "https://t3.ftcdn.net/jpg/17/33/77/02/240_F_1733770257_xf722dJWdLNLOjFYB3oGcd6WGE16KEYL.jpg",
+              },
             ].map((exp, i) => (
               <motion.div
                 key={i}
@@ -173,7 +188,9 @@ export default function HomePage() {
               >
                 <img src={exp.img} alt={exp.title} className="h-40 w-full object-cover" />
                 <div className="p-4">
-                  <h4 className="text-base sm:text-lg font-semibold text-amber-700 font-serif">{exp.title}</h4>
+                  <h4 className="text-base sm:text-lg font-semibold text-amber-700 font-serif">
+                    {exp.title}
+                  </h4>
                 </div>
               </motion.div>
             ))}
