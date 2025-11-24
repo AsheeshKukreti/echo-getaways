@@ -25,7 +25,7 @@ const SERVICES = [
     icon: <Airplay size={20} className="text-amber-600" />,
     title: "Air Tickets",
     short: "We make air travel effortless with smart routing and curated fares.",
-    img: "https://images.unsplash.com/photo-1516354983877-1f92c5f1b4b0?auto=format&fit=crop&w=1600&q=80",
+    img: "https://t3.ftcdn.net/jpg/15/69/80/00/240_F_1569800014_d54UQTtAqssVZAowU9hKZst5OlhMLD9f.jpg",
     bullets: [
       "Best fares across major airlines",
       "Economy, Premium, Business & First Class",
@@ -41,7 +41,7 @@ const SERVICES = [
     title: "Hotel Bookings",
     short:
       "We match your style and budget with stays that feel just right — boutique, heritage or luxury.",
-    img: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=80",
+    img: "https://t4.ftcdn.net/jpg/16/02/41/89/240_F_1602418972_C7SWjHnmTTfRMK2HJa8ztJ5mL6yrDmXK.jpg",
     bullets: [
       "Boutique, heritage & luxury properties",
       "Options near key attractions & business hubs",
@@ -74,7 +74,7 @@ const SERVICES = [
     icon: <Train size={20} className="text-amber-600" />,
     title: "Train Tickets",
     short: "Scenic, budget-friendly journeys across key routes in India.",
-    img: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?auto=format&fit=crop&w=1600&q=80",
+    img: "https://t4.ftcdn.net/jpg/06/80/44/27/240_F_680442778_ZgU5GkJw5OyIJMBEu1CufKlDSZKb8zeM.jpg",
     bullets: [
       "Bookings across major Indian rail networks",
       "AC, Sleeper & Chair Car options",
@@ -142,7 +142,7 @@ const SERVICES = [
     title: "Travel Insurance",
     short:
       "Protect your journey against medical emergencies, delays and other unexpected events.",
-    img: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1600&q=80",
+    img: "https://t3.ftcdn.net/jpg/18/17/49/58/240_F_1817495863_KFRtLgE5Xx0Ss4Lu8dP3PHJwpjbTO665.jpg",
     bullets: [
       "Comprehensive medical & emergency coverage options",
       "Trip delay, cancellation & baggage cover choices",
@@ -214,11 +214,12 @@ export default function ServicesShowcase(): JSX.Element {
         {/* LEFT: Icon Grid */}
         <div className="w-full lg:w-1/2">
           <h3 className="text-2xl sm:text-3xl font-serif font-semibold text-amber-800 mb-4">
-            End-to-End Travel Services
+            Our Travel Expertise
           </h3>
           <p className="text-gray-700 mb-6 max-w-xl">
-            From tickets and stays to visas and insurance, Echo Getaways manages
-            the moving parts so you can stay present in the journey.
+            From flights and hotels to curated itineraries and unique excursions —
+            Echo Getaways offers end-to-end travel services crafted with warmth
+            and care.
           </p>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
@@ -408,10 +409,22 @@ export default function ServicesShowcase(): JSX.Element {
                   <button
                     type="button"
                     onClick={closeDetail}
-                    className="text-xs font-medium text-gray-500 hover:text-amber-700 underline"
+                    className="
+                      mx-auto mt-4 
+                      px-4 py-1.5 
+                      rounded-full 
+                      bg-white/80 
+                      text-amber-700 
+                      text-xs font-medium 
+                      shadow-sm 
+                      hover:bg-white 
+                      transition 
+                      block
+                    "
                   >
-                    Close & resume carousel
+                    Close & resume
                   </button>
+
                 </div>
               </div>
             </motion.div>
